@@ -179,8 +179,8 @@ class MakePackageCommand extends Command
             // Generate overrided views path
             $this->generateOverridedViewsPath();
 
-            // Delete obsolete files and folders
-            $this->deleteObsoleteFilesAndFolders();
+            // Delete not necessary files and folders
+            $this->deleteFilesAndFolders();
         }
 
         return $packageMade;
@@ -444,7 +444,7 @@ class MakePackageCommand extends Command
         $basePath = $this->package->path . '/resources/views/modules';
 
         // Rename directory
-        File::moveDirectory($basePath . '/module-skeleton', $basePath . '/' . $this->package->package);
+        File::moveDirectory($basePath . '/module-skeleton', $basePath . '/' . $this->package->module);
     }
 
     /**
@@ -474,15 +474,27 @@ class MakePackageCommand extends Command
         file_put_contents('composer.json', json_encode($composerData, JSON_PRETTY_PRINT));
     }
 
-    protected function deleteObsoleteFilesAndFolders()
+    /**
+     * Delete not necessary files and folders
+     *
+     * @return void
+     */
+    protected function deleteFilesAndFolders()
     {
+        // Delete README.md
         unlink($this->package->path . '/README.md');
 
+        // Delete .git directory (because it is for package-skeleton)
         $this->removeDirectory(($this->package->path . '/.git'));
-
     }
 
-    protected function removeDirectory($path) {
+    /**
+     * Remove a directory and files inside
+     *
+     * @param string $path
+     * @return void
+     */
+    protected function removeDirectory(string $path) {
         $files = glob($path . '/*');
 
        foreach ($files as $file) {
