@@ -1,0 +1,34 @@
+{
+    "name": "uccello/package-designer",
+    "description": "Adds a command to 'php artisan' to generate new packages",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan SARDO",
+            "email": "jonathan@uccellolabs.com"
+        }
+    ],
+    "require": {
+        "uccello/uccello": "^1.0@dev",
+        "uccello/package-skeleton": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Uccello\\PackageDesigner\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Uccello\\PackageDesigner\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Uccello\\PackageDesigner\\Providers\\AppServiceProvider"
+            ]
+        }
+    }
+}
