@@ -384,6 +384,7 @@ class MakePackageCommand extends Command
                 'module-skeleton',
                 'module_skeletons',
                 'Uccello\\PackageSkeleton\\Models\\ModuleSkeleton',
+                'table_prefix'
             ],
             [
                 'Create' . $moduleClassName . 'Module',
@@ -391,6 +392,7 @@ class MakePackageCommand extends Command
                 $this->package->module,
                 $this->package->table,
                 $this->package->namespace . '\\Models\\' . $moduleClassName,
+                $this->package->tablePrefix
             ],
             $content);
 
