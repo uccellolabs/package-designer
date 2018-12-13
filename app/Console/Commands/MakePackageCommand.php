@@ -121,22 +121,25 @@ class MakePackageCommand extends Command
         $defaultNamespace = studly_case($this->package->vendor) . '\\' . studly_case($this->package->package); // The studly_case function converts the given string to StudlyCase
         $this->package->namespace = $this->ask('Namespace', $defaultNamespace);
 
-        // Module
-        $this->package->module = $this->ask('Module name', $this->package->package);
-
-        // Table
-        $this->package->table = $this->ask('Table name', str_replace('-', '_', str_plural($this->package->module)));
-
-        // Table prefix
-        $this->package->tablePrefix = $this->ask('Table prefix', str_replace('-', '_', str_plural($this->package->package).'_'));
-
         // Display module data
         $this->table(
             [
-                'Name', 'Version', 'Description', 'Author', 'Email', 'Namespace', 'Module', 'Table', 'Table prefix'
+                'Name',
+                'Version',
+                'Description',
+                'Author',
+                'Email',
+                'Namespace'
             ],
             [
-                [$this->package->name, $this->package->version, $this->package->description, $this->package->authorName, $this->package->authorEmail, $this->package->namespace, $this->package->module, $this->package->table, $this->package->tablePrefix]
+                [
+                    $this->package->name,
+                    $this->package->version,
+                    $this->package->description,
+                    $this->package->authorName,
+                    $this->package->authorEmail,
+                    $this->package->namespace
+                ]
             ]
         );
 
