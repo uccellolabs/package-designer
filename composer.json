@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "uccello/uccello": "^1.0@dev",
+        "uccello/uccello": "1.0.*",
         "uccello/package-skeleton": "^1.0"
     },
     "autoload": {
@@ -30,5 +30,6 @@
                 "Uccello\\PackageDesigner\\Providers\\AppServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

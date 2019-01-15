@@ -105,17 +105,14 @@ class MakePackageCommand extends Command
         // Package
         $this->package->package = $packageData[1];
 
-        // Version
-        $this->package->version = $this->ask('Version', '1.0.0');
-
         // Description
         $this->package->description = $this->ask('Description');
 
         // Author name
-        $this->package->authorName = $this->ask('Author name');
+        $this->package->authorName = $this->ask('Author name (e.g. John Smith)');
 
         // Author email
-        $this->package->authorEmail = $this->ask('Author email');
+        $this->package->authorEmail = $this->ask('Author email (e.g. john@smith.com)');
 
         // Namespace
         $defaultNamespace = studly_case($this->package->vendor) . '\\' . studly_case($this->package->package); // The studly_case function converts the given string to StudlyCase
@@ -125,7 +122,6 @@ class MakePackageCommand extends Command
         $this->table(
             [
                 'Name',
-                'Version',
                 'Description',
                 'Author',
                 'Email',
@@ -134,7 +130,6 @@ class MakePackageCommand extends Command
             [
                 [
                     $this->package->name,
-                    $this->package->version,
                     $this->package->description,
                     $this->package->authorName,
                     $this->package->authorEmail,
@@ -224,7 +219,6 @@ class MakePackageCommand extends Command
             [
                 'uccello/package-skeleton',
                 'Uccello\\\\PackageSkeleton',
-                '1.0.0',
                 'Package skeleton for Uccello',
                 'Jonathan SARDO',
                 'jonathan@uccellolabs.com',
@@ -233,7 +227,6 @@ class MakePackageCommand extends Command
             [
                 $this->package->name,
                 $namespace,
-                $this->package->version,
                 $this->package->description,
                 $this->package->authorName,
                 $this->package->authorEmail,
@@ -353,12 +346,16 @@ class MakePackageCommand extends Command
      * @return void
      */
     protected function removeDirectory(string $path) {
+        if (!is_dir($path)) {
+            return;
+        }
+
         $files = glob($path . '/*');
 
-       foreach ($files as $file) {
-           is_dir($file) ? $this->removeDirectory($file) : unlink($file);
-       }
+        foreach ($files as $file) {
+            is_dir($file) ? $this->removeDirectory($file) : unlink($file);
+        }
 
-       rmdir($path);
+        rmdir($path);
    }
 }
