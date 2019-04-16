@@ -1,7 +1,6 @@
 {
     "name": "uccello/package-designer",
     "description": "Adds a command to 'php artisan' to generate new packages",
-    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "authors": [
