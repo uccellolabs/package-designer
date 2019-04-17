@@ -165,6 +165,9 @@ class MakePackageCommand extends Command
             // Generate app/Providers/AppServiceProvider.php
             $this->generateAppServiceProviderFile();
 
+            // Generate routes/web.php
+            $this->generateRoutesFile();
+
             // Delete not necessary files and folders
             $this->deleteFilesAndFolders();
         }
@@ -299,6 +302,34 @@ class MakePackageCommand extends Command
     }
 
     /**
+     * Generate routes/web.php file
+     *
+     * @return void
+     */
+    protected function generateRoutesFile()
+    {
+        $filePath = $this->package->path . '/routes/web.php';
+
+        // Get file content
+        $content = file_get_contents($filePath);
+
+        // Replace data
+        $content = str_replace(
+            [
+                'Uccello\\PackageSkeleton',
+                'package-skeleton',
+            ],
+            [
+                $this->package->namespace,
+                $this->package->package,
+            ],
+            $content);
+
+        // Save data
+        file_put_contents($filePath, $content);
+    }
+
+    /**
      * Add local repository to root composer.json
      *
      * @return void
@@ -310,7 +341,7 @@ class MakePackageCommand extends Command
         $composerData = json_decode($content);
 
         // Add repository if does not exist
-        if (!$composerData->repositories) {
+        if (!isset($composerData->repositories)) {
             $composerData->repositories = [];
         }
 
