@@ -162,10 +162,10 @@ class MakePackageCommand extends Command
             // Generate webpack.mix.js
             $this->generateWebpackMixFile();
 
-            // Generate app/Providers/AppServiceProvider.php
+            // Generate src/Providers/AppServiceProvider.php
             $this->generateAppServiceProviderFile();
 
-            // Generate routes/web.php
+            // Generate src/Http/routes.php
             $this->generateRoutesFile();
 
             // Delete not necessary files and folders
@@ -272,13 +272,13 @@ class MakePackageCommand extends Command
     }
 
     /**
-     * Generate app/Providers/AppServiceProvider.php file
+     * Generate src/Providers/AppServiceProvider.php file
      *
      * @return void
      */
     protected function generateAppServiceProviderFile()
     {
-        $filePath = $this->package->path . '/app/Providers/AppServiceProvider.php';
+        $filePath = $this->package->path . '/src/Providers/AppServiceProvider.php';
 
         // Get file content
         $content = file_get_contents($filePath);
@@ -302,13 +302,13 @@ class MakePackageCommand extends Command
     }
 
     /**
-     * Generate routes/web.php file
+     * Generate src/Http/routes.php file
      *
      * @return void
      */
     protected function generateRoutesFile()
     {
-        $filePath = $this->package->path . '/routes/web.php';
+        $filePath = $this->package->path . '/src/Http/routes.php';
 
         // Get file content
         $content = file_get_contents($filePath);

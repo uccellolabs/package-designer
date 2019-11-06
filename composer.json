@@ -11,16 +11,11 @@
     ],
     "require": {
         "uccello/uccello": "1.0.*",
-        "uccello/package-skeleton": "^1.0"
+        "uccello/package-skeleton": "^1.1"
     },
     "autoload": {
         "psr-4": {
-            "Uccello\\PackageDesigner\\": "app/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Uccello\\PackageDesigner\\Tests\\": "tests/"
+            "Uccello\\PackageDesigner\\": "src/"
         }
     },
     "extra": {
