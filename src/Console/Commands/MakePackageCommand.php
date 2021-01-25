@@ -4,13 +4,14 @@ namespace Uccello\PackageDesigner\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class MakePackageCommand extends Command
 {
     /**
      * The structure of the package.
      *
-     * @var string
+     * @var object
      */
     protected $package;
 
@@ -77,16 +78,14 @@ class MakePackageCommand extends Command
             $packageName = $this->ask('<info>What is the package name? (e.g. vendor/package)</info>');
         }
 
-        // The kebab_case function converts the given string to kebab-case
-        $packageName = kebab_case($packageName);
+        // The Str::kebab function converts the given string to kebab-case
+        $packageName = Str::kebab($packageName);
 
         // If module name is not defined, ask again
         if (!$packageName) {
             $this->error('You must specify a package name');
             return $this->createPackage();
-        }
-        // Check if package name is only with alphanumeric characters
-        elseif (!preg_match('`^[a-z0-9-]+/[a-z0-9-]+$`', $packageName)) {
+        } elseif (!preg_match('`^[a-z0-9-]+/[a-z0-9-]+$`', $packageName)) { // Check if package name is only with alphanumeric characters
             $this->error('You must use only alphanumeric characters');
             return $this->createPackage();
         }
@@ -115,7 +114,7 @@ class MakePackageCommand extends Command
         $this->package->authorEmail = $this->ask('Author email (e.g. john@smith.com)');
 
         // Namespace
-        $defaultNamespace = studly_case($this->package->vendor) . '\\' . studly_case($this->package->package); // The studly_case function converts the given string to StudlyCase
+        $defaultNamespace = Str::studly($this->package->vendor) . '\\' . Str::studly($this->package->package); // The Str::studly function converts the given string to StudlyCase
         $this->package->namespace = $this->ask('Namespace', $defaultNamespace);
 
         // Display module data
@@ -234,12 +233,13 @@ class MakePackageCommand extends Command
                 $this->package->authorName,
                 $this->package->authorEmail,
                 '"laravel": {' . "\n" .
-                '            "providers": [' . "\n" .
-                '                "' . $namespace . '\\\\Providers\\\\AppServiceProvider"' . "\n" .
-                '            ]' . "\n" .
-                '        }'
+                    '            "providers": [' . "\n" .
+                    '                "' . $namespace . '\\\\Providers\\\\AppServiceProvider"' . "\n" .
+                    '            ]' . "\n" .
+                    '        }'
             ],
-            $content);
+            $content
+        );
 
         // Save data
         file_put_contents($filePath, $content);
@@ -265,7 +265,8 @@ class MakePackageCommand extends Command
             [
                 $this->package->name,
             ],
-            $content);
+            $content
+        );
 
         // Save data
         file_put_contents($filePath, $content);
@@ -295,7 +296,8 @@ class MakePackageCommand extends Command
                 $this->package->namespace,
                 $this->package->package,
             ],
-            $content);
+            $content
+        );
 
         // Save data
         file_put_contents($filePath, $content);
@@ -323,7 +325,8 @@ class MakePackageCommand extends Command
                 $this->package->namespace,
                 $this->package->package,
             ],
-            $content);
+            $content
+        );
 
         // Save data
         file_put_contents($filePath, $content);
@@ -376,7 +379,8 @@ class MakePackageCommand extends Command
      * @param string $path
      * @return void
      */
-    protected function removeDirectory(string $path) {
+    protected function removeDirectory(string $path)
+    {
         if (!is_dir($path)) {
             return;
         }
@@ -388,5 +392,5 @@ class MakePackageCommand extends Command
         }
 
         rmdir($path);
-   }
+    }
 }
