@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "uccello/uccello": "^1.0|^2.0",
-        "uccello/package-skeleton": "^2.0"
+        "uccello/uccello": "1.*|2.*",
+        "uccello/package-skeleton": "2.*"
     },
     "autoload": {
         "psr-4": {
